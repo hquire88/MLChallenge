@@ -1,10 +1,11 @@
 package com.example.mlchallenge.ui.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mlchallenge.core.OnItemClickListener
@@ -43,17 +44,20 @@ class MainActivity : AppCompatActivity() {
     private fun initItemSearchedObserver() {
         mainViewModel.resultItemsModel.observe(this, Observer {
             // set recyclerView con los datos obtenidos
-            itemsRVAdapter = RecyclerViewAdapter(it?.results)
-            activityMainBinding.itemsRv.adapter = itemsRVAdapter
-            itemsRVAdapter.setOnItemClickListener(object : OnItemClickListener {
-                override fun onItemClick(position: Int) {
-                    val intent = Intent(this@MainActivity, DetailActivity::class.java)
-                    intent.putExtra("position", position)
-                    intent.putExtra("id", it!!.results[position].id)
+            if (it != null){
+                itemsRVAdapter = RecyclerViewAdapter(it.results)
 
-                    startActivity(intent)
-                }
-            })
+                activityMainBinding.itemsRv.adapter = itemsRVAdapter
+                itemsRVAdapter.setOnItemClickListener(object : OnItemClickListener {
+                    override fun onItemClick(position: Int) {
+                        val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                        intent.putExtra("position", position)
+                        intent.putExtra("id", it!!.results[position].id)
+
+                        startActivity(intent)
+                    }
+                })
+            } else Toast.makeText(this@MainActivity, "Sin datos, verifique conexion", Toast.LENGTH_SHORT).show()
         })
     }
 

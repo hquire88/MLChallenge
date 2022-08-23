@@ -3,7 +3,7 @@ package com.example.mlchallenge
 import com.example.mlchallenge.data.model.ItemDetailModel
 import com.example.mlchallenge.data.model.ShippingModel
 import com.example.mlchallenge.data.repository.ItemsRepository
-import com.example.mlchallenge.domain.GetSelectedItemUseCase
+import com.example.mlchallenge.domain.usecase.GetSelectedItemUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify

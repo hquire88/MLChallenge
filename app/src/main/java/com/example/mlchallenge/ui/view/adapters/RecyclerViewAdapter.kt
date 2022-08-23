@@ -8,7 +8,6 @@ import com.example.mlchallenge.R
 import com.example.mlchallenge.core.OnItemClickListener
 import com.example.mlchallenge.data.model.ItemDetailModel
 import com.squareup.picasso.Picasso
-import kotlin.collections.ArrayList
 
 class RecyclerViewAdapter(private var itemsList: ArrayList<ItemDetailModel>?) :
     RecyclerView.Adapter<GenericRecyclerViewHolder>() {

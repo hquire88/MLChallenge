@@ -7,4 +7,6 @@ object Constants {
         // Constants to call services
         const val API_KEY = "2217472403240088"
         const val SITE_ID = "MLA"
+
+        const val EXCEPTION_TAG = "EXCEPTION"
 }

@@ -5,11 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mlchallenge.R
-import com.example.mlchallenge.core.OnItemClickListener
-import com.example.mlchallenge.data.model.ItemDetailModel
 import com.example.mlchallenge.data.model.PicturesModel
 import com.squareup.picasso.Picasso
-import kotlin.collections.ArrayList
 
 class ImagesRecyclerViewAdapter(private var imagesList: ArrayList<PicturesModel>?) :
     RecyclerView.Adapter<ImagesRecyclerViewHolder>() {

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mlchallenge.data.model.ResultModel
-import com.example.mlchallenge.domain.GetItemSearchedUseCase
+import com.example.mlchallenge.domain.usecase.GetItemSearchedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,10 +18,10 @@ class MainViewModel @Inject constructor(private val getItemsUseCase: GetItemSear
     fun onCall(itemSearched: String) {
         viewModelScope.launch {
             isLoading.postValue(true)
-            val result = getItemsUseCase(itemSearched)
+            val result = getItemsUseCase.responseUseCase(itemSearched)
 
             if (result != null){
-                resultItemsModel.postValue(result)
+                resultItemsModel.postValue(result.data)
                 isLoading.postValue(false)
             }
         }
