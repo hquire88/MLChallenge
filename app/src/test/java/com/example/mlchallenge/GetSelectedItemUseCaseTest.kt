@@ -1,10 +1,9 @@
-package com.example.marvelchallenger.domain
+package com.example.mlchallenge
 
-import com.example.marvelchallenger.data.models.ComicModel
-import com.example.marvelchallenger.data.models.DataModel
-import com.example.marvelchallenger.data.models.ResultModel
-import com.example.marvelchallenger.data.models.ThumbnailModel
-import com.example.marvelchallenger.data.repositories.ComicsRepository
+import com.example.mlchallenge.data.model.ItemDetailModel
+import com.example.mlchallenge.data.model.ShippingModel
+import com.example.mlchallenge.data.repository.ItemsRepository
+import com.example.mlchallenge.domain.GetSelectedItemUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -13,31 +12,43 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-internal class GetSelectedComicUseCaseTest{
+internal class GetSelectedItemUseCaseTest{
     @RelaxedMockK
-    private lateinit var repository : ComicsRepository
+    private lateinit var repository : ItemsRepository
 
-    lateinit var getComicsUseCase: GetComicsUseCase
+    lateinit var getSelectedItemUseCase: GetSelectedItemUseCase
 
     @Before
     fun onBefore(){
         MockKAnnotations.init(this)
-        getComicsUseCase = GetComicsUseCase(repository)
+        getSelectedItemUseCase = GetSelectedItemUseCase(repository)
     }
 
     @Test
     fun whenRunAPIRecieveASeries() = runBlocking {
         //Given
-        val comics = ComicModel(123, "Comic IronMan", "Comics de IronMan", 50, ThumbnailModel("www.imagen.com", ".jpg"), "www.resource.com")
-        val data: DataModel<ComicModel> = DataModel(1500,20, arrayListOf(comics, comics))
-        val result: ResultModel<ComicModel> = ResultModel(200, "Ok", data)
-        coEvery { repository.getAllComics() } returns result
+        val item = ItemDetailModel(
+            "123",
+            "Memoria Ram",
+            null,
+            589.20,
+            "ARG",
+            2,
+            "BUY_NOW",
+            "new",
+            "www.example.com",
+            null,
+            null,
+            ShippingModel(true)
+        )
+
+        coEvery { repository.getSelectedItem("456") } returns item
 
         //When
-        val response = getComicsUseCase()
+        val response = getSelectedItemUseCase("456")
 
         //Then
-        coVerify(exactly = 1) { repository.getAllComics() }
-        assert(result == response)
+        coVerify(exactly = 1) { repository.getSelectedItem("456") }
+        assert(item == response)
     }
 }

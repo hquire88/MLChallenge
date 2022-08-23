@@ -1,7 +1,10 @@
-package com.example.marvelchallenger.domain
+package com.example.mlchallenge
 
-import com.example.marvelchallenger.data.models.*
-import com.example.marvelchallenger.data.repositories.SeriesRepository
+import com.example.mlchallenge.data.model.ItemDetailModel
+import com.example.mlchallenge.data.model.ResultModel
+import com.example.mlchallenge.data.model.ShippingModel
+import com.example.mlchallenge.data.repository.ItemsRepository
+import com.example.mlchallenge.domain.GetItemSearchedUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -10,32 +13,45 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-internal class GetSeriesUseCaseTest{
+internal class GetItemsSearchedUseCaseTest {
 
     @RelaxedMockK
-    private lateinit var repository : SeriesRepository
+    private lateinit var repository: ItemsRepository
 
-    lateinit var getSeriesUseCase: GetSeriesUseCase
+    lateinit var getItemSearchedUseCase: GetItemSearchedUseCase
 
     @Before
-    fun onBefore(){
+    fun onBefore() {
         MockKAnnotations.init(this)
-        getSeriesUseCase = GetSeriesUseCase(repository)
+        getItemSearchedUseCase = GetItemSearchedUseCase(repository)
     }
 
     @Test
-    fun whenRunAPIRecieveASeries() = runBlocking {
+    fun whenRunAPIReceiveItemsSearched() = runBlocking {
         //Given
-        val series: SeriesModel = SeriesModel(123, "Spiderman", "Hombre Arana", ThumbnailModel("www.imagen.com", ".jpg"), "www.resource.com")
-        val data: DataModel<SeriesModel> = DataModel(1500,20, arrayListOf(series, series))
-        val result: ResultModel<SeriesModel> = ResultModel<SeriesModel>(200, "Ok", data)
-        coEvery { repository.getAllSeries() } returns result
+        val items = ItemDetailModel(
+            "123",
+            "Memoria Ram",
+            null,
+            589.20,
+            "ARG",
+            2,
+            "BUY_NOW",
+            "new",
+            "www.example.com",
+            null,
+            null,
+            ShippingModel(true)
+        )
+
+        val result = ResultModel(arrayListOf(items, items))
+        coEvery { repository.getItems("123") } returns result
 
         //When
-        val response = getSeriesUseCase()
+        val response = getItemSearchedUseCase("123")
 
         //Then
-        coVerify(exactly = 1) { repository.getAllSeries() }
+        coVerify(exactly = 1) { repository.getItems("123") }
         assert(result == response)
     }
 }
