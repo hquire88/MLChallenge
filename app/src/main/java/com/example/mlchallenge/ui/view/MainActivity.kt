@@ -1,12 +1,11 @@
 package com.example.mlchallenge.ui.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mlchallenge.core.OnItemClickListener
 import com.example.mlchallenge.databinding.ActivityMainBinding
@@ -48,14 +47,11 @@ class MainActivity : AppCompatActivity() {
             activityMainBinding.itemsRv.adapter = itemsRVAdapter
             itemsRVAdapter.setOnItemClickListener(object : OnItemClickListener {
                 override fun onItemClick(position: Int) {
-//                    val intent = Intent(this@MainActivity, DetailActivity::class.java)
-//                    intent.putExtra("position", position)
-//                    intent.putExtra("id", it.data.results[position].id)
-//                    intent.putExtra("itemType", "series")
-//
-//                    startActivity(intent)
+                    val intent = Intent(this@MainActivity, DetailActivity::class.java)
+                    intent.putExtra("position", position)
+                    intent.putExtra("id", it!!.results[position].id)
 
-                    Toast.makeText(this@MainActivity, "Has cliqueado en Pelicula: ${position + 1}", Toast.LENGTH_SHORT).show()
+                    startActivity(intent)
                 }
             })
         })

@@ -1,5 +1,6 @@
 package com.example.mlchallenge.data.network
 
+import com.example.mlchallenge.data.model.ItemDetailModel
 import com.example.mlchallenge.data.model.ResultModel
 import retrofit2.Response
 import retrofit2.http.GET
@@ -11,4 +12,7 @@ interface ApiClient {
     @GET("sites/{site_id}/search")
     suspend fun getItems(@Path("site_id") idSeries: String,
                          @Query("q") itemSearched: String): Response<ResultModel>
+
+    @GET("items/{itemId}")
+    suspend fun getItemDetail(@Path("itemId") itemId: String): Response<ItemDetailModel>
 }

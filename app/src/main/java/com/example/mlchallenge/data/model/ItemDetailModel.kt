@@ -1,16 +1,16 @@
 package com.example.mlchallenge.data.model
 
-data class ItemModel(
+data class ItemDetailModel(
     val id: String,
     val title: String,
-    val seller: SellerModel,
+    val seller_id: Int?,
     val price: Double,
     val currency_id: String,
     val available_quantity: Int,
     val buying_mode: String,
     val condition: String,
     val thumbnail: String,
-    val installments: InstallmentsModel,
-    val address: AddressDataModel,
+    val pictures: ArrayList<PicturesModel>?,
+    val installments: InstallmentsModel?,
     val shipping: ShippingModel
 )

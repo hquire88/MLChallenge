@@ -10,4 +10,8 @@
 
     <color name="gold">#FFD700</color>
     <color name="lavender">#E6E6FA</color>
+    <color name="snow">#FAFAFA</color>
+
+    <color name="background">@color/snow</color>
+
 </resources>
